@@ -18,6 +18,34 @@
     list-style: none;
     margin: 0;
     padding: 0;
+
+    &.js-spreadsheet-context-menu__items--selected_cols {
+      .js-spreadsheet-context-menu__row:not(.js-spreadsheet-context-menu__cols),
+      .js-spreadsheet-context-menu__col:not(.js-spreadsheet-context-menu__cols) {
+        display: none;
+      }
+    }
+
+    &.js-spreadsheet-context-menu__items--selected_rows {
+      .js-spreadsheet-context-menu__row:not(.js-spreadsheet-context-menu__rows),
+      .js-spreadsheet-context-menu__col:not(.js-spreadsheet-context-menu__rows) {
+        display: none;
+      }
+    }
+
+    &.js-spreadsheet-context-menu__items--selected_col {
+      .js-spreadsheet-context-menu__row,
+      .js-spreadsheet-context-menu__cols {
+        display: none;
+      }
+    }
+
+    &.js-spreadsheet-context-menu__items--selected_row {
+      .js-spreadsheet-context-menu__col,
+      .js-spreadsheet-context-menu__rows {
+        display: none;
+      }
+    }
   }
 
   &__item {

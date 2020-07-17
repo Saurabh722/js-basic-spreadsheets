@@ -1,7 +1,26 @@
-function contextMenuHandler (row, col) {
-    const menuItems = qs(".js-spreadsheet-context-menu__items");
+const menuItems = qs(".js-spreadsheet-context-menu__items");
 
-    // TODO: update selected row column style;
+function contextMenuHandler (row, col, selected) {
+    menuItems.classList.remove(
+        "js-spreadsheet-context-menu__items--selected_row",
+        "js-spreadsheet-context-menu__items--selected_col",
+        "js-spreadsheet-context-menu__items--selected_rows",
+        "js-spreadsheet-context-menu__items--selected_cols"
+    );
+
+    if (row) {
+        if (selected.length > 1) {
+            menuItems.classList.add("js-spreadsheet-context-menu__items--selected_rows");
+        } else {
+            menuItems.classList.add("js-spreadsheet-context-menu__items--selected_row");
+        }
+    } else if (col) {
+        if (selected.length > 1) {
+            menuItems.classList.add("js-spreadsheet-context-menu__items--selected_cols");
+        } else {
+            menuItems.classList.add("js-spreadsheet-context-menu__items--selected_col");
+        }
+    }
 }
 
 window.contextMenu = function (classList, event, callback) {

@@ -13,6 +13,7 @@ import actions from "./action";
         selectedRow: -1,
         selectedColumn: -1,
         matrixData: [],
+        selected: [],
     };
 
     function getState () {

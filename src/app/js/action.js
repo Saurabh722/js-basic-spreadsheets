@@ -15,15 +15,37 @@ function updateSpreadsheetRows (state, rows) {
     store.setState(state);
 }
 
+function updateSelectedColumn (state, colIndex) {
+    state.selectedColumn = colIndex;
+    state.selectedRow = -1;
+    state.selected = [colIndex];
+    store.setState(state);
+}
+
+function updateSelectedRow (state, rowIndex) {
+    state.selectedColumn = -1;
+    state.selectedRow = rowIndex;
+    state.selected = [rowIndex];
+    store.setState(state);
+}
+
 function updateSelectedRowAndColumn (state, data) {
     state.selectedColumn = data.colIndex;
     state.selectedRow = data.rowIndex;
     store.setState(state);
-    data.contextMenuHandler(data.rowIndex, data.colIndex);
+    data.contextMenuHandler(data.rowIndex, data.colIndex, state.selected);
 }
 
 function sortColumns (state) {
     state.matrixData.sort(utility.sort(state.selectedColumn));
+    store.setState(state);
+}
+
+function resetSelected (state, handler) {
+    handler(state.selectedRow, state.selectedColumn);
+    state.selectedRow = -1;
+    state.selectedColumn = -1;
+    state.selected = [];
     store.setState(state);
 }
 
@@ -32,5 +54,8 @@ export default {
     "update-spreadsheet-columns": updateSpreadsheetColumns,
     "update-spreadsheet-rows": updateSpreadsheetRows,
     "update-selected-row-column": updateSelectedRowAndColumn,
-    "sort-column": sortColumns
+    "update-selected-column": updateSelectedColumn,
+    "update-selected-row": updateSelectedRow,
+    "sort-column": sortColumns,
+    "reset-selected": resetSelected
 }

@@ -19,11 +19,23 @@
         text-align: center;
         overflow: hidden;
         border-right: 1px solid $cell-border;
+
+        &.js-spreadsheet-col-selected {
+            background: #b9def5;
+            border-left: 1px solid #174c6d;
+            border-right: 1px solid #174c6d;
+        }
     }
 
     .js-spreadsheet-row {
         display: flex;
         border-bottom: 1px solid $cell-border; 
+
+        &.js-spreadsheet-row-selected {
+            background: #b9def5;
+            border-top: 1px solid #174c6d;
+            border-bottom: 1px solid #174c6d;
+        }
     }
 
     .js-spreadsheet-origin,
@@ -31,6 +43,12 @@
     .js-spreadsheet-col__index {
         background: $index-cell;
         cursor: pointer;
+    }
+
+    .js-spreadsheet-row.js-spreadsheet-row-selected .js-spreadsheet-col__0,
+    .js-spreadsheet-row.js-spreadsheet-row-selected .js-spreadsheet-cell,
+    .js-spreadsheet-col.js-spreadsheet-col-selected .js-spreadsheet-cell {
+        background: #b9def5;
     }
 
     a.js-spreadsheet-origin,
