@@ -10,6 +10,8 @@ import actions from "./action";
         stateInit: false,
         rows: 5,
         columns: 5,
+        selectedRow: -1,
+        selectedColumn: -1,
         matrixData: [],
     };
 

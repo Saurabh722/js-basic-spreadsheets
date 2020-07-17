@@ -21,9 +21,9 @@ function spreadsheetView () {
             if (i === 0 && j === 0) {
                 rowView += `<a class="js-spreadsheet-col js-spreadsheet-origin"></a>`;
             } else if (i === 0) {
-                rowView += `<a class="js-spreadsheet-col js-spreadsheet-col__index">${utility.getColName(j-1)}</a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-col__index" data-col="${j - 1}">${utility.getColName(j-1)}</a>`;
             } else if (j === 0) {
-                rowView += `<a class="js-spreadsheet-col js-spreadsheet-row__index">${i}</a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-row__index" data-row="${i - 1}">${i}</a>`;
             } else {
                 rowView += `<a class="js-spreadsheet-col"><textarea class="js-spreadsheet-cell" disabled data-row="${i - 1}" data-col="${j - 1}">${getCellData(i - 1, j - 1)}</textarea></a>`;
             }

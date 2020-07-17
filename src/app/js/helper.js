@@ -34,7 +34,11 @@
         return function (selector, event, handler) {
             if (!eventRegistry[event]) {
                 eventRegistry[event] = [];
-                window.$on(document.documentElement, event, dispatchEvent, true);
+                if (event === "contextmenu") {
+                    window.contextMenu(selector.split(","), event, dispatchEvent, true);
+                } else {
+                    window.$on(document.documentElement, event, dispatchEvent, true);
+                }
             }
 
             eventRegistry[event].push({

@@ -1,0 +1,43 @@
+/* context menu */
+
+.js-spreadsheet-context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 12px 0;
+  width: 240px;
+  background-color: #fff;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+
+  .js-spreadsheet-context-menu--active {
+    display: block;
+  }
+
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: block;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__link {
+    display: block;
+    padding: 4px 12px;
+    color: #0066aa;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+      background-color: #0066aa;
+    }
+  }
+}

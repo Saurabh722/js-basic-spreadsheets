@@ -1,3 +1,4 @@
-import './scss/style.scss';
 
-import { mainView } from './js/index';
+import './app/scss/style.scss';
+
+import './app/js';
