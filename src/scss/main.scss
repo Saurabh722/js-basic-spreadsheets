@@ -1,0 +1,60 @@
+.js-spreadsheets {
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.js-spreadsheets__container {
+    display: flex;
+    border: 1px solid $cell-border;
+    flex-direction: column;
+
+    .js-spreadsheets-col {
+        display: inline-block;
+        flex: 1;
+        min-width: 100px;
+        text-align: center;
+        overflow: hidden;
+        border-right: 1px solid $cell-border;
+    }
+
+    .js-spreadsheets-row {
+        display: flex;
+        border-bottom: 1px solid $cell-border; 
+    }
+
+    .js-spreadsheets-origin,
+    .js-spreadsheets-row__index,
+    .js-spreadsheets-col__index {
+        background: $index-cell;
+        cursor: pointer;
+    }
+
+    a.js-spreadsheets-origin,
+    a.js-spreadsheets-row__index {
+        min-width: 50px;
+        max-width: 50px;
+        min-height: 25px;
+        line-height: 25px;
+        padding-top: 7px;
+    }
+
+    .js-spreadsheets-cell {
+        width: 100%;
+        height: 100%;
+        min-width: 100px;
+        border: 0;
+        padding: 3px;
+        resize: unset;
+        outline: none;
+        box-shadow: inset 0 0 3px;
+
+        &[disabled] {
+            background: $cell-disabled;
+            box-shadow: none;
+        }
+    }
+}

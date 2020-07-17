@@ -2,7 +2,7 @@ const path = require('path');
 const extractWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-	entry: './src/index.js',
+	entry: './src/app.js',
 	output: {
 		filename: 'basic-spreadsheets.js',
 		path: path.resolve(__dirname, 'dist')
