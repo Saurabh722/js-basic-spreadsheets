@@ -1,5 +1,7 @@
+import actions from "./action";
+
 /**
- * Initial spreadsheets state
+ * Initial spreadsheet state
  * Allow global access to store.setState and store.getState methods.
  */
 
@@ -19,8 +21,13 @@
         defaultState = newState;
     }
 
+    function publish (action, data) {
+        actions[action](defaultState, data);
+    }
+
     window.store = {
         getState,
-        setState
+        setState,
+        publish
     }
 })();

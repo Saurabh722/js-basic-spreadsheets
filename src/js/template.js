@@ -1,10 +1,10 @@
 import * as utility from "./utility";
 
 /**
- * Initialize the spreadsheets view on the page.
- * @returns {String} spreadsheets View String.
+ * Initialize the spreadsheet view on the page.
+ * @returns {String} spreadsheet View String.
  */
-function spreadsheetsView () {
+function spreadsheetView () {
     const appState = store.getState();
     let excelString = "";
 
@@ -19,21 +19,21 @@ function spreadsheetsView () {
 
         for (let j = 0; j <= appState.columns; j++) {
             if (i === 0 && j === 0) {
-                rowView += `<a class="js-spreadsheets-col js-spreadsheets-origin"></a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-origin"></a>`;
             } else if (i === 0) {
-                rowView += `<a class="js-spreadsheets-col js-spreadsheets-col__index">${utility.getColName(j-1)}</a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-col__index">${utility.getColName(j-1)}</a>`;
             } else if (j === 0) {
-                rowView += `<a class="js-spreadsheets-col js-spreadsheets-row__index">${i}</a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-row__index">${i}</a>`;
             } else {
-                rowView += `<a class="js-spreadsheets-col"><textarea class="js-spreadsheets-cell" disabled>${getCellData(i - 1, j - 1)}</textarea></a>`;
+                rowView += `<a class="js-spreadsheet-col"><textarea class="js-spreadsheet-cell" disabled data-row="${i - 1}" data-col="${j - 1}">${getCellData(i - 1, j - 1)}</textarea></a>`;
             }
         }
 
-        excelString += `<div class="js-spreadsheets-row row-container_${i}">${rowView}</div>`;
+        excelString += `<div class="js-spreadsheet-row row-container_${i}">${rowView}</div>`;
     }
 
     appState.stateInit = true;
     return excelString;
 }
 
-export default spreadsheetsView;
+export default spreadsheetView;

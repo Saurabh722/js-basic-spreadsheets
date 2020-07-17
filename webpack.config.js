@@ -4,7 +4,7 @@ const extractWebpackPlugin = require('extract-text-webpack-plugin');
 module.exports = {
 	entry: './src/app.js',
 	output: {
-		filename: 'basic-spreadsheets.js',
+		filename: 'basic-spreadsheet.js',
 		path: path.resolve(__dirname, 'dist')
 	},
 	devServer: {
@@ -33,6 +33,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new extractWebpackPlugin('basic-spreadsheets.css')
+		new extractWebpackPlugin('basic-spreadsheet.css')
 	]
 };
