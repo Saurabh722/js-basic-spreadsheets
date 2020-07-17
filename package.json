@@ -1,0 +1,37 @@
+{
+  "name": "js-basic-spreadsheets",
+  "version": "1.0.0",
+  "description": "basic excel sheet using JavaScript, HTML and CSS",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saurabh722/js-basic-spreadsheets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Saurabh722/js-basic-spreadsheets/issues"
+  },
+  "homepage": "https://github.com/Saurabh722/js-basic-spreadsheets#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "autoprefixer": "^9.8.5",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.6.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "lost": "^8.3.1",
+    "node-sass": "^4.14.1",
+    "postcss-loader": "^3.0.0",
+    "rucksack-css": "^1.0.2",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
