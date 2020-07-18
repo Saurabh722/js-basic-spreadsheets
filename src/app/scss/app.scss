@@ -38,11 +38,37 @@
         }
     }
 
+    .js-spreadsheet-col.js-spreadsheet-origin,
+    .js-spreadsheet-row.js-spreadsheet-row_0,
+    .js-spreadsheet-col.js-spreadsheet-row__index {
+        position: sticky;
+        z-index: 0;
+    }
+
+    .js-spreadsheet-col.js-spreadsheet-origin,
+    .js-spreadsheet-col.js-spreadsheet-row__index {
+        left: 0;
+    }
+
+    .js-spreadsheet-col.js-spreadsheet-origin,
+    .js-spreadsheet-row_0{
+        top: 0;
+    }
+
+    .js-spreadsheet-col.js-spreadsheet-origin {
+        z-index: 11;
+    }
+
     .js-spreadsheet-origin,
     .js-spreadsheet-row__index,
     .js-spreadsheet-col__index {
         background: $index-cell;
+        user-select: none;
         cursor: pointer;
+    }
+
+    .js-spreadsheet-col__index {
+        line-height: 24px;
     }
 
     .js-spreadsheet-row.js-spreadsheet-row-selected .js-spreadsheet-col__0,

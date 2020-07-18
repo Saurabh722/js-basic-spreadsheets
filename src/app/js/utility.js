@@ -7,8 +7,8 @@ const columns = colHead.length;
 
 export function getColName(index) {
     if (index < colHead.length) return colHead[index];
-    const newIndex = (index) % util.columns;
-    const repeatCount = Math.ceil((index + 1) / util.columns);
+    const newIndex = (index) % columns;
+    const repeatCount = Math.ceil((index + 1) / columns);
     let colName = "";
     for (let i = 0; i < repeatCount; i++) {
         colName += colHead[newIndex];

@@ -8,17 +8,7 @@ const view = {
     render: () => {
         view.jsspreadsheet.innerHTML = spreadsheetView();
     },
-    sortColumn: () => {
-        store.publish("update-selected-row-column");
-        view.render();
-    },
-    resetSelectedState: _ => {
-        appState.selectedRow = -1;
-        appState.selectedColumn = -1;
-        appState.selected = [];
-    },
     selectColumn: col => {
-        console.log(col);
         qsa(`.js-spreadsheet-col__${col + 1}`).forEach(item => {
             item.classList.add("js-spreadsheet-col-selected");
         });
@@ -27,68 +17,25 @@ const view = {
         qs(`.js-spreadsheet-row_${row + 1}`).classList.add("js-spreadsheet-row-selected");
     },
     deSelectRowColumns: (row, col) => {
-        if (col !== -1) {
+        if (typeof col === "number" && col !== -1) {
             qsa(`.js-spreadsheet-col__${col + 1}`).forEach(item => {
                 item.classList.remove("js-spreadsheet-col-selected");
             });
         }
 
-        if (row !== -1) {
+        if (typeof row === "number" && row !== -1) {
             qs(`.js-spreadsheet-row_${row + 1}`).classList.remove("js-spreadsheet-row-selected");
         }
     },
-    viewAction: action => {
+    iterateSelected: (action) => {
+        const appState = store.getState();
         if (!appState.selected.length) return;
         const min = Math.min(...appState.selected);
         const max = Math.max(...appState.selected);
 
         for (let i = min; i <= max; i++) {
-            if (action === "deSelectRowColumns") {
-                view.deSelectRowColumns(appState.selectedRow , i);
-                view.deSelectRowColumns(i, appState.selectedColumn);
-            } else {
-                view[action](i);
-            }
+            view[action](i);
         }
-    },
-    insertAbove: _ => { 
-        appState.matrixData.splice(appState.selectedRow, 0, new Array(appState.columns));
-        ++appState.rows;
-        view.render();
-    },
-    insertBelow: _ => {
-        appState.matrixData.splice(appState.selectedRow + 1, 0, new Array(appState.columns));
-        ++appState.rows;
-        view.render();
-    },
-    deleteRow: _ => {
-        appState.matrixData.splice(appState.selectedRow, 1);
-        --appState.rows;
-        view.render();
-    },
-    insertLeft: _ => {
-        for (let i = 0; i < appState.rows; i++) {
-            appState.matrixData[i].splice(appState.selectedColumn, 0, []);
-        }
-
-        ++appState.columns;
-        view.render();
-    },
-    insertRight: _ => {
-        for (let i = 0; i < appState.rows; i++) {
-            appState.matrixData[i].splice(appState.selectedColumn + 1, 0, []);
-        }
-
-        ++appState.columns;
-        view.render();
-    },
-    deleteColumn: _ => {
-        for (let i = 0; i < appState.rows; i++) {
-            appState.matrixData[i].splice(appState.selectedColumn, 1);
-        }
-
-        --appState.columns;
-        view.render();
     },
 	bind: () => {
 		$live(".js-spreadsheet-cell", 'click', function () {
@@ -119,20 +66,79 @@ const view = {
             });
         });
 
-        $on(qs("[data-action=trigger-sort]"), "click", view.sortColumn);
+        $on(qs("[data-action=trigger-sort]"), "click", function () {
+            store.publish("sort-column");
+            view.render();
+        });
 
         $live(".js-spreadsheet-col__index", 'click', function (e) {
             const colIndex = parseInt(this.getAttribute("data-col"));
-            store.publish("reset-selected", view.deSelectRowColumns);
-            store.publish("update-selected-column", colIndex);
-            view.selectColumn(colIndex);
+            if (e.shiftKey) {
+                if (store.getState().selectedRow !== -1) {
+                    store.publish("reset-selected", view.deSelectRowColumns);
+                }
+                store.publish("update-selected-columns", colIndex);
+                view.iterateSelected("selectColumn");
+            } else {
+                store.publish("reset-selected", view.deSelectRowColumns);
+                store.publish("update-selected-column", colIndex);
+                view.selectColumn(colIndex);
+            }
         });
 
         $live(".js-spreadsheet-row__index", 'click', function (e) {
             const rowIndex = parseInt(this.getAttribute("data-row"));
-            store.publish("reset-selected", view.deSelectRowColumns);
-            store.publish("update-selected-row", rowIndex);
-            view.selectRow(rowIndex);
+            if (e.shiftKey) {
+                if (store.getState().selectedColumn !== -1) {
+                    store.publish("reset-selected", view.deSelectRowColumns);
+                }
+                store.publish("update-selected-rows", rowIndex);
+                view.iterateSelected("selectRow");
+            } else {
+                store.publish("reset-selected", view.deSelectRowColumns);
+                store.publish("update-selected-row", rowIndex);
+                view.selectRow(rowIndex);
+            }
+        });
+
+        $on(qs("[data-action=insert-above]"), "click", function () {
+            store.publish("insert-above");
+            view.render();
+        });
+
+        $on(qs("[data-action=insert-below]"), "click", function () {
+            store.publish("insert-below");
+            view.render();
+        });
+
+        $on(qs("[data-action=delete-row]"), "click", function () {
+            store.publish("delete-row");
+            view.render();
+        });
+
+        $on(qs("[data-action=delete-rows]"), "click", function () {
+            store.publish("delete-rows");
+            view.render();
+        });
+
+        $on(qs("[data-action=insert-left]"), "click", function () {
+            store.publish("insert-left");
+            view.render();
+        });
+
+        $on(qs("[data-action=insert-right]"), "click", function () {
+            store.publish("insert-right");
+            view.render();
+        });
+
+        $on(qs("[data-action=delete-column]"), "click", function () {
+            store.publish("delete-column");
+            view.render();
+        });
+
+        $on(qs("[data-action=delete-columns]"), "click", function () {
+            store.publish("delete-columns");
+            view.render();
         });
 	},
     init: () => {

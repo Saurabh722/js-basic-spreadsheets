@@ -1,14 +1,15 @@
-/* context menu */
+@import "./variables.scss";
 
 .js-spreadsheet-context-menu {
   display: none;
   position: absolute;
   z-index: 10;
   padding: 12px 0;
-  width: 240px;
-  background-color: #fff;
-  border: solid 1px #dfdfdf;
-  box-shadow: 1px 1px 2px #cfcfcf;
+  width: 200px;
+  background-color: $white;
+  border-radius: 5px;
+  border: solid 1px $context-menu-border;
+  box-shadow: 3px 3px 5px $context-menu-shadow;
 
   .js-spreadsheet-context-menu--active {
     display: block;
@@ -60,12 +61,12 @@
   &__link {
     display: block;
     padding: 4px 12px;
-    color: #0066aa;
+    color: $context-menu-active;
     text-decoration: none;
 
     &:hover {
       color: #fff;
-      background-color: #0066aa;
+      background-color: $context-menu-active;
     }
   }
 }
