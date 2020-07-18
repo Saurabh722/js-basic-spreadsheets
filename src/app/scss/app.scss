@@ -21,9 +21,9 @@
         border-right: 1px solid $cell-border;
 
         &.js-spreadsheet-col-selected {
-            background: #b9def5;
-            border-left: 1px solid #174c6d;
-            border-right: 1px solid #174c6d;
+            background: $selected-cell;
+            border-left: 1px solid $selected-cell-border;
+            border-right: 1px solid $selected-cell-border;
         }
     }
 
@@ -32,9 +32,9 @@
         border-bottom: 1px solid $cell-border; 
 
         &.js-spreadsheet-row-selected {
-            background: #b9def5;
-            border-top: 1px solid #174c6d;
-            border-bottom: 1px solid #174c6d;
+            background: $selected-cell;
+            border-top: 1px solid $selected-cell-border;
+            border-bottom: 1px solid $selected-cell-border;
         }
     }
 
@@ -74,7 +74,7 @@
     .js-spreadsheet-row.js-spreadsheet-row-selected .js-spreadsheet-col__0,
     .js-spreadsheet-row.js-spreadsheet-row-selected .js-spreadsheet-cell,
     .js-spreadsheet-col.js-spreadsheet-col-selected .js-spreadsheet-cell {
-        background: #b9def5;
+        background: $selected-cell;
     }
 
     a.js-spreadsheet-origin,
