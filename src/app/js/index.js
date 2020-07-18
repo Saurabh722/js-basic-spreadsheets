@@ -44,8 +44,8 @@ const view = {
         });
 
         $live(".js-spreadsheet-cell", 'blur', function () {
-            const rowIndex = this.getAttribute("data-row");
-            const colIndex = this.getAttribute("data-col");
+            const rowIndex = parseInt(this.getAttribute("data-row"));
+            const colIndex = parseInt(this.getAttribute("data-col"));
 
             store.publish("update-spreadsheet-data", {
                 rowIndex,
@@ -56,8 +56,8 @@ const view = {
         });
 
         $live(".js-spreadsheet-col__index, .js-spreadsheet-row__index", 'contextmenu', function () {
-            const rowIndex = this.getAttribute("data-row");
-            const colIndex = this.getAttribute("data-col");
+            const rowIndex = parseInt(this.getAttribute("data-row"));
+            const colIndex = parseInt(this.getAttribute("data-col"));
 
             store.publish("update-selected-row-column", {
                 rowIndex,
@@ -111,16 +111,6 @@ const view = {
             view.render();
         });
 
-        $on(qs("[data-action=delete-row]"), "click", function () {
-            store.publish("delete-row");
-            view.render();
-        });
-
-        $on(qs("[data-action=delete-rows]"), "click", function () {
-            store.publish("delete-rows");
-            view.render();
-        });
-
         $on(qs("[data-action=insert-left]"), "click", function () {
             store.publish("insert-left");
             view.render();
@@ -128,6 +118,16 @@ const view = {
 
         $on(qs("[data-action=insert-right]"), "click", function () {
             store.publish("insert-right");
+            view.render();
+        });
+
+        $on(qs("[data-action=delete-row]"), "click", function () {
+            store.publish("delete-row");
+            view.render();
+        });
+
+        $on(qs("[data-action=delete-rows]"), "click", function () {
+            store.publish("delete-rows");
             view.render();
         });
 
@@ -142,7 +142,19 @@ const view = {
         });
     },
     mainView: () => {
-        qs("#js-spreadsheet-app").innerHTML = template.initView();
+        const jsSpreadsheetApp = qs("#js-spreadsheet-app");
+        const rows = parseInt(jsSpreadsheetApp.getAttribute("data-rows"));
+        const columns = parseInt(jsSpreadsheetApp.getAttribute("data-columns"));
+
+        if (rows) {
+            store.publish("update-spreadsheet-rows", rows);
+        }
+
+        if (columns) {
+            store.publish("update-spreadsheet-columns", columns);
+        }
+
+        jsSpreadsheetApp.innerHTML = template.initView();
         view.jsSpreadsheet = qs(".js-spreadsheet__container");
     },
     init: () => {

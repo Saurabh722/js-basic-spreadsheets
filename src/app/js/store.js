@@ -8,8 +8,8 @@ import actions from "./action";
 (function initailState () {
     let defaultState = {
         stateInit: false,
-        rows: 50,
-        columns: 50,
+        rows: 20,
+        columns: 20,
         selectedRow: -1,
         selectedColumn: -1,
         matrixData: [],
