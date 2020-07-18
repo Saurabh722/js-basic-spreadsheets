@@ -16,13 +16,14 @@ basic excel sheet using JavaScript, HTML and CSS
 ## Features
 
 1. Edit: clicking on cell will make it editable, blur(clicking anywhere) will disable cell.
-2. Sort: right-click any column head will display sort option.
-3. Select: click any row or column head will display select row or column accordingly.
-4. Insert Column Left: right-click column head where you want to insert left column will display insert left option.
-5. Insert Column Right: right-click column head where you want to insert right column will display insert right option.
-6. Insert Row Above: right-click row head where you want to insert above row will display insert above option.
-7. Insert Row Below: right-click row head where you want to insert below row will display insert below option.
-8. Delete Column: right-click column head which you want to delete will display delete column option.
-9. Delete Row: right-click row head which you want to delete will display delete row option.
-10. Delete Columns: Select column(to) then press shift key select column(from), right-click will display delete columns option.
-11. Delete Rows: Select row(to) then press shift key select row(from), right-click will display delete rows option.
+2. Menu: right-click on row/column head or click any row/column head menu-icon will display menu view.
+3. Sort: select `Sort` option from menu-view.
+4. Select: click any row or column head will select row or column accordingly.
+5. Insert Column Left: select `Insert Left` option from menu-view.
+6. Insert Column Right: : select `Insert Right` option from menu-view.
+7. Insert Row Above: select `Insert Above` option from menu-view.
+8. Insert Row Below: select `Insert Below` option from menu-view.
+9. Delete Column: select `Delete Column` option from menu-view.
+10. Delete Row: select `Delete Row` option from menu-view.
+11. Delete Columns: Select column(to) then press shift key select column(from), select `Delete Columns` option from menu-view.
+12. Delete Rows: Select row(to) then press shift key select row(from), select `Delete Rows` option from menu-view.
