@@ -139,13 +139,13 @@ function contextMenuHandler (row, col, selected) {
         "js-spreadsheet-context-menu__items--selected_cols"
     );
 
-    if (row && row !== -1) {
+    if (typeof row === "number" && row !== -1) {
         if (selected.length > 1) {
             menuItems.classList.add("js-spreadsheet-context-menu__items--selected_rows");
         } else {
             menuItems.classList.add("js-spreadsheet-context-menu__items--selected_row");
         }
-    } else if (col && col !== -1) {
+    } else if (typeof col === "number" && col !== -1) {
         if (selected.length > 1) {
             menuItems.classList.add("js-spreadsheet-context-menu__items--selected_cols");
         } else {

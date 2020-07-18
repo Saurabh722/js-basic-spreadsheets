@@ -18,7 +18,7 @@ export function getColName(index) {
 
 export function getNumber (val) {
     const num = parseInt(val);
-    if (typeof num === "number") {
+    if (num === num && typeof num === "number") {
         return num;
     }
 
