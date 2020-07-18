@@ -34,13 +34,14 @@ const view = {
         const max = Math.max(...appState.selected);
 
         for (let i = min; i <= max; i++) {
-            view[action](i);
+            view[action](i, i);
         }
     },
 	bind: () => {
 		$live(".js-spreadsheet-cell", 'click', function () {
             this.disabled = false;
             this.focus();
+            store.publish("reset-selected", view.deSelectRowColumns);
         });
 
         $live(".js-spreadsheet-cell", 'blur', function () {
@@ -73,14 +74,19 @@ const view = {
 
         $live(".js-spreadsheet-col__index", 'click', function (e) {
             const colIndex = parseInt(this.getAttribute("data-col"));
+            const appState = store.getState();
             if (e.shiftKey) {
-                if (store.getState().selectedRow !== -1) {
+                if (appState.selectedRow !== -1) {
                     store.publish("reset-selected", view.deSelectRowColumns);
                 }
                 store.publish("update-selected-columns", colIndex);
                 view.iterateSelected("selectColumn");
             } else {
-                store.publish("reset-selected", view.deSelectRowColumns);
+                if (appState.selectedRow !== -1 && appState.selected.length) {
+                    view.iterateSelected("deSelectRowColumns");
+                } else {
+                    store.publish("reset-selected", view.deSelectRowColumns);
+                }
                 store.publish("update-selected-column", colIndex);
                 view.selectColumn(colIndex);
             }
@@ -88,14 +94,19 @@ const view = {
 
         $live(".js-spreadsheet-row__index", 'click', function (e) {
             const rowIndex = parseInt(this.getAttribute("data-row"));
+            const appState = store.getState();
             if (e.shiftKey) {
-                if (store.getState().selectedColumn !== -1) {
+                if (appState.selectedColumn !== -1) {
                     store.publish("reset-selected", view.deSelectRowColumns);
                 }
                 store.publish("update-selected-rows", rowIndex);
                 view.iterateSelected("selectRow");
             } else {
-                store.publish("reset-selected", view.deSelectRowColumns);
+                if (appState.selectedColumn !== -1 && appState.selected.length) {
+                    view.iterateSelected("deSelectRowColumns");
+                } else {
+                    store.publish("reset-selected", view.deSelectRowColumns);
+                }
                 store.publish("update-selected-row", rowIndex);
                 view.selectRow(rowIndex);
             }
