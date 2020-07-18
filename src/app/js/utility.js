@@ -16,6 +16,15 @@ export function getColName(index) {
     return colName;
 }
 
+export function getNumber (val) {
+    const num = parseInt(val);
+    if (typeof num === "number") {
+        return num;
+    }
+
+    return -1;
+}
+
 export function sort(key, order = 'asc') {
     return function innerSort(a, b) {
         if (typeof a[key] === "undefined" || typeof b[key] === "undefined") {

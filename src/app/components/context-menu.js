@@ -1,5 +1,7 @@
 import getContextMenuView from "./template";
 
+let showContextMenu;
+
 function bindEvent() {
     window.contextMenu = function (classList, event, callback) {
         const menu_el = qs("#js-spreadsheet-context-menu");
@@ -78,8 +80,8 @@ function bindEvent() {
                 menu_el.style.top = clickCoordsY + "px";
             }
         }
-    
-        document.addEventListener("contextmenu", function (e) {
+
+        showContextMenu = e => {
             let iselementScopeClick = false;
     
             for (let i = 0; i < classList.length; i++) {
@@ -96,8 +98,10 @@ function bindEvent() {
             } else {
                 toggleMenuOff();
             }
-        });
-    
+        }
+
+        document.addEventListener("contextmenu", showContextMenu);
+
         $on(document, "click", function (e) {
             var isLink = _elementScopeClick(e, "js-spreadsheet-context-menu__link");
     
@@ -135,13 +139,13 @@ function contextMenuHandler (row, col, selected) {
         "js-spreadsheet-context-menu__items--selected_cols"
     );
 
-    if (row) {
+    if (row && row !== -1) {
         if (selected.length > 1) {
             menuItems.classList.add("js-spreadsheet-context-menu__items--selected_rows");
         } else {
             menuItems.classList.add("js-spreadsheet-context-menu__items--selected_row");
         }
-    } else if (col) {
+    } else if (col && col !== -1) {
         if (selected.length > 1) {
             menuItems.classList.add("js-spreadsheet-context-menu__items--selected_cols");
         } else {
@@ -150,4 +154,7 @@ function contextMenuHandler (row, col, selected) {
     }
 }
 
-export default contextMenuHandler;
+export default {
+    show: showContextMenu,
+    handler: contextMenuHandler
+};

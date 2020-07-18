@@ -1,7 +1,8 @@
 import "./helper";
 import "./store";
-import contextMenuHandler from "../components/context-menu";
+import contextMenuComponent from "../components/context-menu";
 import template from "./template";
+import * as utility from "./utility";
 
 const view = {
     jsSpreadsheet: null,
@@ -68,14 +69,17 @@ const view = {
      */
 	bind: () => {
 		$live(".js-spreadsheet-cell", 'click', function () {
+            const rowIndex = utility.getNumber(this.getAttribute("data-row"));
+            const colIndex = utility.getNumber(this.getAttribute("data-col"));
+            store.publish("update-editable", true);
             this.disabled = false;
             this.focus();
             store.publish("reset-selected", view.deSelectRowColumns);
         });
 
-        $live(".js-spreadsheet-cell", 'blur', function () {
-            const rowIndex = parseInt(this.getAttribute("data-row")) || -1;
-            const colIndex = parseInt(this.getAttribute("data-col")) || -1;
+        $live(".js-spreadsheet-cell", 'blur', function (e) {
+            const rowIndex = utility.getNumber(this.getAttribute("data-row"));
+            const colIndex = utility.getNumber(this.getAttribute("data-col"));
 
             store.publish("update-spreadsheet-data", {
                 rowIndex,
@@ -83,17 +87,18 @@ const view = {
                 value: this.value,
             })
             this.disabled = true;
+            store.publish("update-editable", false);
         });
 
         $live(".js-spreadsheet-col__index, .js-spreadsheet-row__index", 'contextmenu', function () {
-            const rowIndex = parseInt(this.getAttribute("data-row")) || -1;
-            const colIndex = parseInt(this.getAttribute("data-col")) || -1;
+            const rowIndex = utility.getNumber(this.getAttribute("data-row"));
+            const colIndex = utility.getNumber(this.getAttribute("data-col"));
 
-            store.publish("update-selected-row-column", {
+            setTimeout(store.publish, 0, "update-selected-row-column", {
                 rowIndex,
                 colIndex,
-                contextMenuHandler
-            });
+                handler: contextMenuComponent.handler
+            })
         });
 
         $on(qs("[data-action=trigger-sort]"), "click", function () {
@@ -102,7 +107,7 @@ const view = {
         });
 
         $live(".js-spreadsheet-col__index", 'click', function (e) {
-            const colIndex = parseInt(this.getAttribute("data-col")) || -1;
+            const colIndex = utility.getNumber(this.getAttribute("data-col"));
             const appState = store.getState();
             if (e.shiftKey) {
                 // If already row is selected
@@ -127,7 +132,7 @@ const view = {
         });
 
         $live(".js-spreadsheet-row__index", 'click', function (e) {
-            const rowIndex = parseInt(this.getAttribute("data-row")) || -1;
+            const rowIndex = utility.getNumber(this.getAttribute("data-row"));
             const appState = store.getState();
             if (e.shiftKey) {
                 // If already column is selected
@@ -198,8 +203,8 @@ const view = {
      */
     mainView: () => {
         const jsSpreadsheetApp = qs("#js-spreadsheet-app");
-        const rows = parseInt(jsSpreadsheetApp.getAttribute("data-rows")) || -1;
-        const columns = parseInt(jsSpreadsheetApp.getAttribute("data-columns")) || -1;
+        const rows = utility.getNumber(jsSpreadsheetApp.getAttribute("data-rows"));
+        const columns = utility.getNumber(jsSpreadsheetApp.getAttribute("data-columns"));
 
         if (rows) {
             store.publish("update-spreadsheet-rows", rows);
