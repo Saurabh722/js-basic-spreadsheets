@@ -1,8 +1,6 @@
 import * as utility from "./utility";
 
 function updateSpreadsheetData (state, data) {
-    // if (state.editable) return;
-
     state.matrixData[data.rowIndex][data.colIndex] = data.value;
     store.setState(state);
 }
@@ -50,11 +48,6 @@ function updateSelectedRowAndColumn (state, data) {
     state.selectedRow = data.rowIndex;
     store.setState(state);
     data.handler(data.rowIndex, data.colIndex, state.selected);
-}
-
-function updateEditable (state, isEdit) {
-    state.editable = isEdit;
-    store.setState(state);
 }
 
 function sortColumns (state) {
@@ -155,7 +148,6 @@ export default {
     "update-selected-rows": updateSelectedRows,
     "update-selected-row-column": updateSelectedRowAndColumn,
 
-    "update-editable": updateEditable,
     "sort-column": sortColumns,
     "reset-selected": resetSelected,
 

@@ -71,7 +71,6 @@ const view = {
 		$live(".js-spreadsheet-cell", 'click', function () {
             const rowIndex = utility.getNumber(this.getAttribute("data-row"));
             const colIndex = utility.getNumber(this.getAttribute("data-col"));
-            store.publish("update-editable", true);
             this.disabled = false;
             this.focus();
             store.publish("reset-selected", view.deSelectRowColumns);
@@ -87,14 +86,13 @@ const view = {
                 value: this.value,
             })
             this.disabled = true;
-            store.publish("update-editable", false);
         });
 
         $live(".js-spreadsheet-col__index, .js-spreadsheet-row__index", 'contextmenu', function () {
             const rowIndex = utility.getNumber(this.getAttribute("data-row"));
             const colIndex = utility.getNumber(this.getAttribute("data-col"));
 
-            setTimeout(store.publish, 0, "update-selected-row-column", {
+            store.publish("update-selected-row-column", {
                 rowIndex,
                 colIndex,
                 handler: contextMenuComponent.handler

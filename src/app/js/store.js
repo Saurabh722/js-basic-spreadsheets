@@ -8,7 +8,6 @@ import actions from "./action";
 (function initailState () {
     let defaultState = {
         stateInit: false,
-        editable: false,
         rows: 20,
         columns: 20,
         selectedRow: -1,
