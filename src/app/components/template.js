@@ -1,6 +1,6 @@
 /**
  * Initialize the context-menu view.
- * @returns {String} context-menu as View String.
+ * @returns {String} context-menu View String.
  */
 function getContextMenuView () {
     return `
