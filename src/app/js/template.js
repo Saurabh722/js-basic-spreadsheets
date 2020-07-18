@@ -36,6 +36,10 @@ function spreadsheetView () {
     return excelString;
 }
 
+/**
+ * Initialize the spreadsheet wrapper view on the page.
+ * @returns {String} container wrapper String.
+ */
 function initView () {
     return `
     <section class="js-spreadsheet">

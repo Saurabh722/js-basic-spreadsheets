@@ -14,7 +14,7 @@
     };
 
     // Register events on elements that may or may not exist yet:
-    // $live('div a', 'click', function (event) {});
+    // Usage $live('div a', 'click', function (event) {});
     window.$live = (function () {
         var eventRegistry = {};
 
@@ -48,5 +48,6 @@
         };
     }());
 
+    // Few browser won't support for forEach for node selector array.
     NodeList.prototype.forEach = Array.prototype.forEach;
 })();

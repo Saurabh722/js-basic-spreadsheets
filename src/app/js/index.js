@@ -5,17 +5,37 @@ import template from "./template";
 
 const view = {
     jsSpreadsheet: null,
+
+    /**
+     * update spreadsheet view.
+     */
     render: () => {
         view.jsSpreadsheet.innerHTML = template.spreadsheetView();
     },
+
+    /**
+     * Highlight selected Column.
+     * @param {Object} col - Selected Column index.
+     */
     selectColumn: col => {
         qsa(`.js-spreadsheet-col__${col + 1}`).forEach(item => {
             item.classList.add("js-spreadsheet-col-selected");
         });
     },
+
+    /**
+     * Highlight selected Row.
+     * @param {Object} row - Selected row index.
+     */
     selectRow: row => {
         qs(`.js-spreadsheet-row_${row + 1}`).classList.add("js-spreadsheet-row-selected");
     },
+
+    /**
+     * De-select selected Row and Column.
+     * @param {Object} row - Selected row index.
+     * @param {Object} col - Selected column index.
+     */
     deSelectRowColumns: (row, col) => {
         if (typeof col === "number" && col !== -1) {
             qsa(`.js-spreadsheet-col__${col + 1}`).forEach(item => {
@@ -27,6 +47,11 @@ const view = {
             qs(`.js-spreadsheet-row_${row + 1}`).classList.remove("js-spreadsheet-row-selected");
         }
     },
+
+    /**
+     * Iterate to array of Selected rows or columns and called given action.
+     * @param {Object} action - Any view row column related action.
+     */
     iterateSelected: (action) => {
         const appState = store.getState();
         if (!appState.selected.length) return;
@@ -37,6 +62,10 @@ const view = {
             view[action](i, i);
         }
     },
+
+    /**
+     * bind Event Listener.
+     */
 	bind: () => {
 		$live(".js-spreadsheet-cell", 'click', function () {
             this.disabled = false;
@@ -76,15 +105,20 @@ const view = {
             const colIndex = parseInt(this.getAttribute("data-col"));
             const appState = store.getState();
             if (e.shiftKey) {
+                // If already row is selected
                 if (appState.selectedRow !== -1) {
+                    // de-select selected row
                     store.publish("reset-selected", view.deSelectRowColumns);
                 }
                 store.publish("update-selected-columns", colIndex);
                 view.iterateSelected("selectColumn");
             } else {
+                // If already rows are selected
                 if (appState.selectedRow !== -1 && appState.selected.length) {
+                    // de-select all selected columns
                     view.iterateSelected("deSelectRowColumns");
                 } else {
+                    // de-select selected row
                     store.publish("reset-selected", view.deSelectRowColumns);
                 }
                 store.publish("update-selected-column", colIndex);
@@ -96,15 +130,20 @@ const view = {
             const rowIndex = parseInt(this.getAttribute("data-row"));
             const appState = store.getState();
             if (e.shiftKey) {
+                // If already column is selected
                 if (appState.selectedColumn !== -1) {
+                    // de-select selected column
                     store.publish("reset-selected", view.deSelectRowColumns);
                 }
                 store.publish("update-selected-rows", rowIndex);
                 view.iterateSelected("selectRow");
             } else {
+                // If already colums are selected
                 if (appState.selectedColumn !== -1 && appState.selected.length) {
+                    // de-select all selected columns
                     view.iterateSelected("deSelectRowColumns");
                 } else {
+                    // de-select selected column
                     store.publish("reset-selected", view.deSelectRowColumns);
                 }
                 store.publish("update-selected-row", rowIndex);
@@ -152,6 +191,11 @@ const view = {
             view.render();
         });
     },
+
+    /**
+     * Initialize spreadsheet wrapper view
+     * Update state with user given rows and columns
+     */
     mainView: () => {
         const jsSpreadsheetApp = qs("#js-spreadsheet-app");
         const rows = parseInt(jsSpreadsheetApp.getAttribute("data-rows"));
@@ -168,6 +212,10 @@ const view = {
         jsSpreadsheetApp.innerHTML = template.initView();
         view.jsSpreadsheet = qs(".js-spreadsheet__container");
     },
+
+    /**
+     * Initialize spreadsheet main view and bind events
+     */
     init: () => {
         view.mainView();
 		view.render();
