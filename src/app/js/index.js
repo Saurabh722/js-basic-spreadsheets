@@ -74,8 +74,8 @@ const view = {
         });
 
         $live(".js-spreadsheet-cell", 'blur', function () {
-            const rowIndex = parseInt(this.getAttribute("data-row"));
-            const colIndex = parseInt(this.getAttribute("data-col"));
+            const rowIndex = parseInt(this.getAttribute("data-row")) || -1;
+            const colIndex = parseInt(this.getAttribute("data-col")) || -1;
 
             store.publish("update-spreadsheet-data", {
                 rowIndex,
@@ -86,8 +86,8 @@ const view = {
         });
 
         $live(".js-spreadsheet-col__index, .js-spreadsheet-row__index", 'contextmenu', function () {
-            const rowIndex = parseInt(this.getAttribute("data-row"));
-            const colIndex = parseInt(this.getAttribute("data-col"));
+            const rowIndex = parseInt(this.getAttribute("data-row")) || -1;
+            const colIndex = parseInt(this.getAttribute("data-col")) || -1;
 
             store.publish("update-selected-row-column", {
                 rowIndex,
@@ -102,7 +102,7 @@ const view = {
         });
 
         $live(".js-spreadsheet-col__index", 'click', function (e) {
-            const colIndex = parseInt(this.getAttribute("data-col"));
+            const colIndex = parseInt(this.getAttribute("data-col")) || -1;
             const appState = store.getState();
             if (e.shiftKey) {
                 // If already row is selected
@@ -127,7 +127,7 @@ const view = {
         });
 
         $live(".js-spreadsheet-row__index", 'click', function (e) {
-            const rowIndex = parseInt(this.getAttribute("data-row"));
+            const rowIndex = parseInt(this.getAttribute("data-row")) || -1;
             const appState = store.getState();
             if (e.shiftKey) {
                 // If already column is selected
@@ -198,8 +198,8 @@ const view = {
      */
     mainView: () => {
         const jsSpreadsheetApp = qs("#js-spreadsheet-app");
-        const rows = parseInt(jsSpreadsheetApp.getAttribute("data-rows"));
-        const columns = parseInt(jsSpreadsheetApp.getAttribute("data-columns"));
+        const rows = parseInt(jsSpreadsheetApp.getAttribute("data-rows")) || -1;
+        const columns = parseInt(jsSpreadsheetApp.getAttribute("data-columns")) || -1;
 
         if (rows) {
             store.publish("update-spreadsheet-rows", rows);
