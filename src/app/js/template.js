@@ -36,4 +36,15 @@ function spreadsheetView () {
     return excelString;
 }
 
-export default spreadsheetView;
+function initView () {
+    return `
+    <section class="js-spreadsheet">
+        <div class="js-spreadsheet__container"></div>
+    </section>
+    `
+}
+
+export default {
+    spreadsheetView,
+    initView
+}

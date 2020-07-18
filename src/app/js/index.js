@@ -1,12 +1,12 @@
 import "./helper";
 import "./store";
 import contextMenuHandler from "../components/context-menu";
-import spreadsheetView from "./template";
+import template from "./template";
 
 const view = {
-    jsspreadsheet: qs(".js-spreadsheet__container"),
+    jsSpreadsheet: null,
     render: () => {
-        view.jsspreadsheet.innerHTML = spreadsheetView();
+        view.jsSpreadsheet.innerHTML = template.spreadsheetView();
     },
     selectColumn: col => {
         qsa(`.js-spreadsheet-col__${col + 1}`).forEach(item => {
@@ -140,8 +140,13 @@ const view = {
             store.publish("delete-columns");
             view.render();
         });
-	},
+    },
+    mainView: () => {
+        qs("#js-spreadsheet-app").innerHTML = template.initView();
+        view.jsSpreadsheet = qs(".js-spreadsheet__container");
+    },
     init: () => {
+        view.mainView();
 		view.render();
 		view.bind();
     }
