@@ -64,6 +64,10 @@ const view = {
         }
     },
 
+    updateSelected: () => {
+
+    },
+
     /**
      * bind Event Listener.
      */
@@ -73,6 +77,7 @@ const view = {
             const colIndex = utility.getNumber(this.getAttribute("data-col"));
             this.disabled = false;
             this.focus();
+            view.iterateSelected("deSelectRowColumns");
             store.publish("reset-selected", view.deSelectRowColumns);
         });
 
