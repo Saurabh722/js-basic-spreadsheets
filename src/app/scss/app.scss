@@ -65,6 +65,24 @@
         background: $index-cell;
         user-select: none;
         cursor: pointer;
+
+        .js-spreadsheet-head-menu-btn {
+            font-size: 9px;
+            float: right;
+            padding: 1px 4px 0 4px;
+            color: $context-menu-icon;
+            cursor: pointer;
+
+            &:hover {
+                color: $white;
+                background: $context-menu-active
+            }
+        }
+    }
+
+    .js-spreadsheet-row__index .js-spreadsheet-head-menu-btn {
+        padding: 10px 4px 6px;
+        margin-top: -8px;
     }
 
     .js-spreadsheet-col__index {

@@ -96,7 +96,7 @@ const view = {
                 rowIndex,
                 colIndex,
                 handler: contextMenuComponent.handler
-            })
+            });
         });
 
         $on(qs("[data-action=trigger-sort]"), "click", function () {
@@ -104,9 +104,24 @@ const view = {
             view.render();
         });
 
+        $live(".js-spreadsheet-head-menu-btn", 'click', function (e) {
+            e.preventDefault();
+            const colIndex = utility.getNumber(this.getAttribute("data-col"));
+            const rowIndex = utility.getNumber(this.getAttribute("data-row"));
+
+            contextMenuComponent.show(e, [".js-spreadsheet-head-menu-btn"], function () {
+                store.publish("update-selected-row-column", {
+                    rowIndex,
+                    colIndex,
+                    handler: contextMenuComponent.handler
+                });
+            });
+        });
+
         $live(".js-spreadsheet-col__index", 'click', function (e) {
             const colIndex = utility.getNumber(this.getAttribute("data-col"));
             const appState = store.getState();
+
             if (e.shiftKey) {
                 // If already row is selected
                 if (appState.selectedRow !== -1) {

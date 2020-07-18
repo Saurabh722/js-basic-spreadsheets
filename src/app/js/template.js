@@ -21,9 +21,9 @@ function spreadsheetView () {
             if (i === 0 && j === 0) {
                 rowView += `<a class="js-spreadsheet-col js-spreadsheet-origin"></a>`;
             } else if (i === 0) {
-                rowView += `<a class="js-spreadsheet-col js-spreadsheet-col__index js-spreadsheet-col__${j}" data-col="${j - 1}">${utility.getColName(j-1)}</a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-col__index js-spreadsheet-col__${j}" data-col="${j - 1}">${utility.getColName(j-1)}<span class="js-spreadsheet-head-menu-btn" data-col="${j - 1}">&#9660;</span></a>`;
             } else if (j === 0) {
-                rowView += `<a class="js-spreadsheet-col js-spreadsheet-row__index js-spreadsheet-col__0" data-row="${i - 1}">${i}</a>`;
+                rowView += `<a class="js-spreadsheet-col js-spreadsheet-row__index js-spreadsheet-col__0" data-row="${i - 1}">${i}<span class="js-spreadsheet-head-menu-btn" data-row="${i - 1}">&#9660;</span></a>`;
             } else {
                 rowView += `<a class="js-spreadsheet-col js-spreadsheet-col__${j}" data-col="${j - 1}"><textarea class="js-spreadsheet-cell" disabled data-row="${i - 1}" data-col="${j - 1}">${getCellData(i - 1, j - 1)}</textarea></a>`;
             }
