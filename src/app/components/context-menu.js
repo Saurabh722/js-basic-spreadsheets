@@ -114,6 +114,9 @@ function bindEvent() {
     }
 }
 
+/**
+ * Initialize context-menu view
+ */
 (function renderContextMenu() {
     const contextMenuEl = document.createElement(`NAV`);
     contextMenuEl.setAttribute("id", "js-spreadsheet-context-menu");

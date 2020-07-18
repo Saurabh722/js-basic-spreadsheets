@@ -1,3 +1,7 @@
+/**
+ * Initialize the context-menu view.
+ * @returns {String} context-menu as View String.
+ */
 function getContextMenuView () {
     return `
 		<ul class="js-spreadsheet-context-menu__items">
