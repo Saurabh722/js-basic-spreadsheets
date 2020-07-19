@@ -64,8 +64,15 @@ const view = {
         }
     },
 
-    updateSelected: () => {
-
+    resetSelectedView: (isSelected) => {
+        // If already rows are selected
+        if (isSelected) {
+            // de-select all selected columns
+            view.iterateSelected("deSelectRowColumns");
+        } else {
+            // de-select selected row
+            store.publish("reset-selected", view.deSelectRowColumns);
+        }
     },
 
     /**
@@ -136,14 +143,7 @@ const view = {
                 store.publish("update-selected-columns", colIndex);
                 view.iterateSelected("selectColumn");
             } else {
-                // If already rows are selected
-                if (appState.selectedRow !== -1 && appState.selected.length) {
-                    // de-select all selected columns
-                    view.iterateSelected("deSelectRowColumns");
-                } else {
-                    // de-select selected row
-                    store.publish("reset-selected", view.deSelectRowColumns);
-                }
+                view.resetSelectedView(appState.selected.length);
                 store.publish("update-selected-column", colIndex);
                 view.selectColumn(colIndex);
             }
@@ -161,14 +161,7 @@ const view = {
                 store.publish("update-selected-rows", rowIndex);
                 view.iterateSelected("selectRow");
             } else {
-                // If already colums are selected
-                if (appState.selectedColumn !== -1 && appState.selected.length) {
-                    // de-select all selected columns
-                    view.iterateSelected("deSelectRowColumns");
-                } else {
-                    // de-select selected column
-                    store.publish("reset-selected", view.deSelectRowColumns);
-                }
+                view.resetSelectedView(appState.selected.length);
                 store.publish("update-selected-row", rowIndex);
                 view.selectRow(rowIndex);
             }
