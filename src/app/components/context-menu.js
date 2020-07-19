@@ -100,24 +100,28 @@ function bindEvent() {
         menu_el = qs("#js-spreadsheet-context-menu");
         contextMenu.show = 0;
 
-        document.addEventListener("contextmenu", (e) => {
-            showMenu(e, classList, callback);
-        });
-
-        $on(document, "click", function (e) {
-            var isLink = _elementScopeClick(e, "js-spreadsheet-context-menu__link");
-            var menuBtn = _elementScopeClick(e, "js-spreadsheet-head-menu-btn");
-
-            if (isLink ) {
-                e.preventDefault();
-                toggleMenuOff();
-            } else if (!menuBtn) {
-                var button = e.which || e.button;
-                if (button === 1) {
+        if (!contextMenu.initiated) {
+            document.addEventListener("contextmenu", (e) => {
+                showMenu(e, classList, callback);
+            });
+    
+            $on(document, "click", function (e) {
+                var isLink = _elementScopeClick(e, "js-spreadsheet-context-menu__link");
+                var menuBtn = _elementScopeClick(e, "js-spreadsheet-head-menu-btn");
+    
+                if (isLink ) {
+                    e.preventDefault();
                     toggleMenuOff();
+                } else if (!menuBtn) {
+                    var button = e.which || e.button;
+                    if (button === 1) {
+                        toggleMenuOff();
+                    }
                 }
-            }
-        });
+            });
+
+            contextMenu.initiated = true;
+        }
     }
 }
 
