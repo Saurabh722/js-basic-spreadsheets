@@ -80,31 +80,27 @@ function deleteRows (state) {
     const max = Math.max(...state.selected);
 
     state.matrixData.splice(min, max);
-    state.rows = state.matrixData.length - 1;
+    state.rows = state.matrixData.length;
     resetState(state);
 }
 
-function deleteColumn (state, idx = 0) {
-    for (let i = idx; i < state.rows; i++) {
-        state.matrixData[i].splice(state.selectedColumn, 1);
+function deleteColumn (state, toIdx, fromIdx=1) {
+    const selectedColumn = typeof toIdx === "number" ? toIdx : state.selectedColumn;
+
+    for (let i = 0; i < state.rows; i++) {
+        state.matrixData[i].splice(selectedColumn, fromIdx);
     }
 
-    --state.columns;
+    state.columns =  state.matrixData[0].length;
     resetState(state);
 }
 
 function deleteColumns (state) {
     if (!state.selected.length) return;
-    const min = Math.min(...state.selected);
-    const max = Math.max(...state.selected);
+    const toIdx = Math.min(...state.selected);
+    const fromIdx = Math.max(...state.selected);
 
-    for (let i = min; i <= max; i++) {
-        deleteColumn(state, i);
-    }
-
-    state.selected = [];
-
-    resetState(state);
+    deleteColumn(state, toIdx, fromIdx);
 }
 
 function insertAbove (state) {
