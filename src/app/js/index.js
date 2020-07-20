@@ -220,14 +220,14 @@ const view = {
         if (rows && rows <= 300) {
             store.publish("update-spreadsheet-rows", rows);
         } else {
-            utility.showAlert("Number of Rows should me less then 300");
+            utility.showAlert("Number of Rows should be at-least 1 and less then 300");
             return;
         }
 
         if (columns && columns <= 100) {
             store.publish("update-spreadsheet-columns", columns);
         } else {
-            utility.showAlert("Number of Columns should me less then 100");
+            utility.showAlert("Number of Columns should be at-least 1 and less then 100");
             return;
         }
 
