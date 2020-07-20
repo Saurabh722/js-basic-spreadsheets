@@ -14,6 +14,8 @@ import actions from "./action";
         selectedColumn: -1,
         matrixData: [],
         selected: [],
+        maxRows: 300,
+        maxColumns: 100
     };
 
     function getState () {

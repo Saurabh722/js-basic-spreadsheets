@@ -50,3 +50,7 @@ export function sort(key, order = 'asc') {
         );
     };
 }
+
+export function showAlert(msg) {
+    alert(msg);
+}

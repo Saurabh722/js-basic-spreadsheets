@@ -9,7 +9,28 @@
 </head>
 
 <body>
-	<div id="js-spreadsheet-app" data-rows="20" data-columns="30"></div>
+	<div id="js-spreadsheet-app" data-rows="20" data-columns="30">
+		<div class="loading-view">
+			<style>
+				.loading-content {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					justify-content: center;
+				}
+			</style>
+			<div class="loading-content">
+				<h2>Loading...</h2>
+				<br/>
+				<p>js-spreadsheet-app will support up to <strong>300 rows</strong> and <strong>100 colums</strong> only.</p>
+				<p>Please reset values under <strong>300 rows</strong><strong>100 colums</strong></p>
+				<p>Incase if page taking time to load</p>
+			</div>
+		</div>
+	</div>
 	<script src="basic-spreadsheet.js"></script>
 </body>
 

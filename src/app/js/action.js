@@ -104,33 +104,49 @@ function deleteColumns (state) {
 }
 
 function insertAbove (state) {
-    state.matrixData.splice(state.selectedRow, 0, new Array(state.columns));
-    ++state.rows;
-    store.setState(state);
+    if (state.rows < state.maxRows) {
+        state.matrixData.splice(state.selectedRow, 0, new Array(state.columns));
+        ++state.rows;
+        store.setState(state);
+    } else {
+        utility.showAlert("Number of Rows should me less then 300");
+    }
 }
 
 function insertBelow (state) {
-    state.matrixData.splice(state.selectedRow + 1, 0, new Array(state.columns));
-    ++state.rows;
-    store.setState(state);
+    if (state.rows < state.maxRows) {
+        state.matrixData.splice(state.selectedRow + 1, 0, new Array(state.columns));
+        ++state.rows;
+        store.setState(state);
+    } else {
+        utility.showAlert("Number of Rows should me less then 300");
+    }
 }
 
 function insertLeft (state) {
-    for (let i = 0; i < state.rows; i++) {
-        state.matrixData[i].splice(state.selectedColumn, 0, []);
-    }
+    if (state.columns < state.maxColumns) {
+        for (let i = 0; i < state.rows; i++) {
+            state.matrixData[i].splice(state.selectedColumn, 0, []);
+        }
 
-    ++state.columns;
-    store.setState(state);
+        ++state.columns;
+        store.setState(state);
+    } else {
+        utility.showAlert("Number of Columns should me less then 100");
+    }
 }
 
 function insertRight (state) {
-    for (let i = 0; i < state.rows; i++) {
-        state.matrixData[i].splice(state.selectedColumn + 1, 0, []);
-    }
+    if (state.columns < state.maxColumns) {
+        for (let i = 0; i < state.rows; i++) {
+            state.matrixData[i].splice(state.selectedColumn + 1, 0, []);
+        }
 
-    ++state.columns;
-    store.setState(state);
+        ++state.columns;
+        store.setState(state);
+    } else {
+        utility.showAlert("Number of Columns should me less then 100");
+    }
 }
 
 export default {

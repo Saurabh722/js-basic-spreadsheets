@@ -217,12 +217,18 @@ const view = {
         const rows = utility.getNumber(jsSpreadsheetApp.getAttribute("data-rows"));
         const columns = utility.getNumber(jsSpreadsheetApp.getAttribute("data-columns"));
 
-        if (rows) {
+        if (rows && rows <= 300) {
             store.publish("update-spreadsheet-rows", rows);
+        } else {
+            utility.showAlert("Number of Rows should me less then 300");
+            return;
         }
 
-        if (columns) {
+        if (columns && columns <= 100) {
             store.publish("update-spreadsheet-columns", columns);
+        } else {
+            utility.showAlert("Number of Columns should me less then 100");
+            return;
         }
 
         jsSpreadsheetApp.innerHTML = template.initView();
